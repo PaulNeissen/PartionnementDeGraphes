@@ -1,23 +1,22 @@
+import random
 
-nbS = 0
-nbEdges = 0
-graph = {}
-k = 2
+k = 3
+graphe = {}
+ss = [[] for i in range(k)]
 
-with open("./bz/3elt.graph",'r') as file:
-	#content = file.readlines()
-	#print(str(content))
-	i = 0
-	for l in file:
-		if i == 0:
-			nbS,nbEdges = [int(x) for x in l.split()]
-			print("nbS : " + str(nbS))
-			print("nbEdges : " + str(nbEdges))
-		else:	
-			graph[i] = [int(x) for x in l.split()]
-		i+=1
-	
-	#print("graph : %s" % graph[1])
+with open("fichier.graph", "r") as fichier:
+    i = 0
+    for line in fichier:
+        if i == 0:
+            nbNodes, nbEdges = [int(j) for j in line.split()]
+        else:
+            graphe[i] = [int(j) for j in line.split()]
+        i += 1
 
+liste_noeuds_non_utilises = [i + 1 for i in range(nbNodes)]
 
+for s in ss:
+    i = random.choice(liste_noeuds_non_utilises)
+    s.append(i)
+    liste_noeuds_non_utilises.remove(i)
 
