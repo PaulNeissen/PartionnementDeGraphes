@@ -14,9 +14,15 @@ with open("fichier.graph", "r") as fichier:
         i += 1
 
 liste_noeuds_non_utilises = [i + 1 for i in range(nbNodes)]
+liste_voisins = [[] for x in range(k)
 
-for s in ss:
+for s in enumerate(ss):
     i = random.choice(liste_noeuds_non_utilises)
     s.append(i)
+
     liste_noeuds_non_utilises.remove(i)
+
+
+
+
 
