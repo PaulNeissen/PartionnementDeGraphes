@@ -77,3 +77,25 @@ for s in ss:
 
 print "Sum_ratio : " + str(sum_ratio)
 
+
+print "\nRecherche Locale : \n"
+for index,s in enumerate(ss):
+	print s 
+	print "\n"
+	for i in s:
+		for j in graphe[i]:
+			if j not in s
+
+
+
+
+
+
+
+
+	
+
+
+
+	
+
