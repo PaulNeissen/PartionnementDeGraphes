@@ -1,5 +1,4 @@
 import random
-
 import time
 import sys
 
@@ -75,18 +74,44 @@ for s in ss:
     print ratio
     sum_ratio += ratio
 
-print "Sum_ratio : " + str(sum_ratio)
+print "Sum_ratio : " + str(sum_ratio) + "\n"
 
 
 print "\nRecherche Locale : \n"
+
+print "Recuperation des noeuds frontiere...\n"
+
+meilleur = {"numero":0, "ratio":2}
 for index,s in enumerate(ss):
 	print s 
 	print "\n"
 	for i in s:
+		border = False
+		# Test pour savoir si le noeud a un voisin 
+		# qui appartient a un autre cluster
 		for j in graphe[i]:
-			if j not in s
+			if j not in s:
+				border = True
+				
 
+				sum_ratio = 0.0
+				for s in ss:
+					poids = 0
+					cut = 0
+					for i in s:
+						for j in graphe[i]:
+							if j in s:
+								poids += 0.5
+							else:
+								cut += 1
+					ratio = cut / poids
+					print ratio
+					sum_ratio += ratio
+				
 
+				break
+		if border:
+			break
 
 
 
