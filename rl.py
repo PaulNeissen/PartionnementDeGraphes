@@ -8,6 +8,7 @@ graphe = {}
 ss = [[] for i in range(k)]
 ss_inverse = {}
 file_name = "./petit.graph"
+file_name = "../bz/fichier.graph"
 
 
 print "Loading " + file_name + "... "
@@ -41,13 +42,13 @@ for j in range(k):
 
 print "Add nodes in cluster... "
 
-loading_tool = len(liste_noeuds_non_utilises)/40
+loading_tool = float(len(liste_noeuds_non_utilises)) / 100
 it = 0
-
 while len(liste_noeuds_non_utilises) > 0:
-    if it % loading_tool == 0:
-        sys.stdout.write("-")
-        sys.stdout.flush()
+    
+    sys.stdout.write("  %d %% \r" % int(it / loading_tool))
+    sys.stdout.flush()
+
     if len(liste_voisins) > 0:
         i = random.choice(liste_voisins)
         liste_voisins.remove(i)
@@ -101,7 +102,8 @@ while continuer:
     it = 0
     for au_bord in liste_bords:
         it += 1
-        sys.stdout.write(" %f %% \r" % (float(it) / nombre_total * 100))
+        
+        sys.stdout.write("  %f %% \r" % (float(it) / nombre_total * 100))
         sys.stdout.flush()
 
         numero = au_bord["numero"]
