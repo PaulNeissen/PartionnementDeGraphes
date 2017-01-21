@@ -1,11 +1,13 @@
 import random
+from pprint import pprint
 import time
 import sys
 
 k = 3
 graphe = {}
 ss = [[] for i in range(k)]
-file_name = "../bz/3elt.graph"
+ss_inverse = {}
+file_name = "./petit.graph"
 
 
 print "Loading " + file_name + "... "
@@ -30,6 +32,7 @@ print "Initialization... "
 for j in range(k):
     i = random.choice(liste_noeuds_non_utilises)
     ss[j].append(i)
+    ss_inverse[i] = j
     liste_voisins.extend([j for j in graphe[i] if j not in liste_voisins and j in liste_noeuds_non_utilises])
     liste_noeuds_non_utilises.remove(i)
 
@@ -53,6 +56,7 @@ while len(liste_noeuds_non_utilises) > 0:
     count = [len([j for j in graphe[i] if j in s]) for s in ss]
     s = count.index(max(count))
     ss[s].append(i)
+    ss_inverse[i] = s
     liste_voisins.extend([j for j in graphe[i] if j not in liste_voisins and j in liste_noeuds_non_utilises])
     it += 1
 sys.stdout.write("\n")
@@ -77,50 +81,67 @@ for s in ss:
 print "Sum_ratio : " + str(sum_ratio) + "\n"
 
 
-print "\nRecherche Locale : \n"
+meilleur = {"numero":-1, "ratio": sum_ratio, "ss":0}
+continuer = True
+while continuer:
+    Trouve = False
+    liste_bords = []
+    for index,s in enumerate(ss):
+        for i in s:
+            border = False
+            for j in graphe[i]:
+                if j not in s:
+                    border = True
+                    liste_bords.append({"numero":i, "ss":ss_inverse[j]})
+                    break
 
-print "Recuperation des noeuds frontiere...\n"
+    nombre_total = len(liste_bords)
+    it = 0
+    for au_bord in liste_bords:
+        it += 1
+        sys.stdout.write(" %f %% \r" % (float(it) / nombre_total * 100))
+        sys.stdout.flush()
 
-meilleur = {"numero":0, "ratio":2}
-for index,s in enumerate(ss):
-	print s 
-	print "\n"
-	for i in s:
-		border = False
-		# Test pour savoir si le noeud a un voisin 
-		# qui appartient a un autre cluster
-		for j in graphe[i]:
-			if j not in s:
-				border = True
-				
+        numero = au_bord["numero"]
+        ss_destination = au_bord["ss"]
 
-				sum_ratio = 0.0
-				for s in ss:
-					poids = 0
-					cut = 0
-					for i in s:
-						for j in graphe[i]:
-							if j in s:
-								poids += 0.5
-							else:
-								cut += 1
-					ratio = cut / poids
-					print ratio
-					sum_ratio += ratio
-				
+        ss_origine = ss_inverse[numero]
+        ss[ss_origine].remove(numero)
+        ss[ss_destination].append(numero)
+        ss_inverse[numero] = ss_destination
 
-				break
-		if border:
-			break
+        sum_ratio = 0.0
+        for s in ss:
+            poids = 0
+            cut = 0
+            for i in s:
+                for j in graphe[i]:
+                    if j in s:
+                        poids += 0.5
+                    else:
+                        cut += 1
+            ratio = cut / poids
+            sum_ratio += ratio
+		
+        if sum_ratio < meilleur["ratio"]:
+            meilleur["ratio"] = sum_ratio
+            meilleur["numero"] = numero
+            meilleur["ss"] = ss_destination
+            Trouve = True
 
+        ss[ss_destination].remove(numero)
+        ss[ss_origine].append(numero)
+        ss_inverse[numero] = ss_origine
 
+    print "Meilleur ratio : %f" % meilleur["ratio"]
 
-
-
-
-	
-
-
-
-	
+    if not(Trouve):
+        continuer = False
+    else:
+        numero = meilleur["numero"]
+        ss_destination = meilleur["ss"]
+        ss_origine = ss_inverse[numero]
+        ss[ss_origine].remove(numero)
+        ss[ss_destination].append(numero)
+        ss_inverse[numero] = ss_destination
 

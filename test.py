@@ -5,7 +5,7 @@ import sys
 k = 3
 graphe = {}
 ss = [[] for i in range(k)]
-file_name = "../bz/3elt.graph"
+file_name = "./petit.graph"
 
 
 print "Loading " + file_name + "... "
@@ -36,12 +36,12 @@ for j in range(k):
 
 print "Add nodes in cluster... "
 
-loading_tool = len(liste_noeuds_non_utilises)/40
+loading_tool = float(len(liste_noeuds_non_utilises)) / 100
 it = 0
 
 while len(liste_noeuds_non_utilises) > 0:
-    if it % loading_tool == 0:
-        sys.stdout.write("-")
+    if True:
+        sys.stdout.write("%d%% \r" % int(it / loading_tool))
         sys.stdout.flush()
     if len(liste_voisins) > 0:
         i = random.choice(liste_voisins)
