@@ -35,6 +35,8 @@ for j in range(k):
     ss_inverse[i] = j
     liste_voisins.extend([j for j in graphe[i] if j not in liste_voisins and j in liste_noeuds_non_utilises])
     liste_noeuds_non_utilises.remove(i)
+    if i in liste_voisins:
+        liste_voisins.remove(i)
 
 
 print "Add nodes in cluster... "
@@ -145,3 +147,6 @@ while continuer:
         ss[ss_destination].append(numero)
         ss_inverse[numero] = ss_destination
 
+print "\nSolution finale :\n----------------"
+
+print ss
