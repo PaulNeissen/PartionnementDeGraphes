@@ -45,7 +45,7 @@ print "Add nodes in cluster... "
 loading_tool = float(len(liste_noeuds_non_utilises)) / 100
 it = 0
 while len(liste_noeuds_non_utilises) > 0:
-    
+
     sys.stdout.write("  %d %% \r" % int(it / loading_tool))
     sys.stdout.flush()
 
@@ -69,7 +69,7 @@ print "Ratio Calcul... "
 
 sum_ratio = 0.0
 for s in ss:
-    poids = 0
+    poids = 0.1
     cut = 0
     for i in s:
         for j in graphe[i]:
@@ -102,7 +102,7 @@ while continuer:
     it = 0
     for au_bord in liste_bords:
         it += 1
-        
+
         sys.stdout.write("  %f %% \r" % (float(it) / nombre_total * 100))
         sys.stdout.flush()
 
@@ -116,7 +116,7 @@ while continuer:
 
         sum_ratio = 0.0
         for s in ss:
-            poids = 0
+            poids = 0.1
             cut = 0
             for i in s:
                 for j in graphe[i]:
