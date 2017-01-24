@@ -22,6 +22,7 @@ with open(file_name, "r") as fichier:
             graphe[i] = [int(j) for j in line.split()]
         i += 1
 
+variables = [[False for j in range(nbNodes)] for i in range(k)]
 
 
 model = Model ()
