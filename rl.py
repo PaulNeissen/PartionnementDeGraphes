@@ -3,12 +3,14 @@ from pprint import pprint
 import time
 import sys
 
+start_time = time.time()
+
 k = 3
 graphe = {}
 ss = [[] for i in range(k)]
 ss_inverse = {}
 file_name = "./petit.graph"
-file_name = "../bz/fichier.graph"
+#file_name = "../bz/fichier.graph"
 
 
 print "Loading " + file_name + "... "
@@ -152,3 +154,5 @@ while continuer:
 print "\nSolution finale :\n----------------"
 
 print ss
+
+print("\n--- %s seconds ---" % (time.time() - start_time))
