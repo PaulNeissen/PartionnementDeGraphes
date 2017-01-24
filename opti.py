@@ -4,6 +4,25 @@ from pprint import pprint
 import time
 import sys
 
+start_time = time.time()
+
+k = 3
+graphe = {}
+ss = [[] for i in range(k)]
+ss_inverse = {}
+file_name = "./petit.graph"
+#file_name = "../bz/fichier.graph"
+
+with open(file_name, "r") as fichier:
+    i = 0
+    for line in fichier:
+        if i == 0:
+            nbNodes, nbEdges = [int(j) for j in line.split()]
+        else:
+            graphe[i] = [int(j) for j in line.split()]
+        i += 1
+
+
 
 model = Model ()
 
